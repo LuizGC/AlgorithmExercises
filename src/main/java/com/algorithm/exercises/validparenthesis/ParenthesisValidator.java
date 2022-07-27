@@ -29,8 +29,7 @@ public final class ParenthesisValidator {
 
     public boolean isValid() {
         Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
+        for (char c : text.toCharArray()) {
             if (KEYS.contains(c)) {
                 char stackItem = stack.pop();
                 char openParenthesisEquivalent = PARENTHESIS_GROUP.get(c);
