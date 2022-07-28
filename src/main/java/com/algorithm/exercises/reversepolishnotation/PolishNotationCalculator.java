@@ -57,15 +57,11 @@ public class PolishNotationCalculator {
                 if (stack.size() > 1) {
                     int b = stack.pop();
                     int a = stack.pop();
-                    if (expresion.length > 3) {
-                        builder.append("(");
-                    }
+                    openParenthesis(builder);
                     builder.append(a);
                     addOperation(builder, operation);
                     builder.append(b);
-                    if (expresion.length > 3) {
-                        builder.append(")");
-                    }
+                    closeParenthesis(builder);
                 } else {
                     addOperation(builder, operation);
                     int a = stack.pop();
@@ -83,9 +79,23 @@ public class PolishNotationCalculator {
                 .toString();
     }
 
+    private void openParenthesis(StringBuilder builder) {
+        addParenthesis(builder, "(");
+    }
+
+    private void closeParenthesis(StringBuilder builder) {
+        addParenthesis(builder, ")");
+    }
+
     private void addOperation(StringBuilder builder, String operation) {
         builder.append(" ")
                 .append(operation)
                 .append(" ");
+    }
+
+    private void addParenthesis(StringBuilder builder, String str) {
+        if (expresion.length > 3) {
+            builder.append(str);
+        }
     }
 }
