@@ -31,21 +31,55 @@ public class PolishNotationCalculator {
         this.expresion = expresion;
     }
 
-    public double evaluate() {
+    public int evaluate() {
         Stack<Integer> stack = new Stack<>();
-        for (String item : expresion) {
-            if(ALLOWED_OPERATION.contains(item)) {
+        for (String operation : expresion) {
+            if(ALLOWED_OPERATION.contains(operation)) {
                 int b = stack.pop();
                 int a = stack.pop();
-                int result = OPERATIONS.get(item).apply(a, b);
+                int result = OPERATIONS.get(operation).apply(a, b);
                 stack.push(result);
             } else {
-                stack.push(Integer.valueOf(item));
+                stack.push(Integer.valueOf(operation));
             }
         }
         if (stack.size() > 1) {
             throw new IllegalStateException();
         }
         return stack.pop();
+    }
+
+    public String toAlgebraic() {
+        Stack<Integer> stack = new Stack<>();
+        StringBuilder builder = new StringBuilder();
+        for (String operation : expresion) {
+            if(ALLOWED_OPERATION.contains(operation)) {
+                if (stack.size() > 1) {
+                    int b = stack.pop();
+                    int a = stack.pop();
+                    builder.append("(")
+                            .append(a)
+                            .append(" ")
+                            .append(operation)
+                            .append(" ")
+                            .append(b)
+                            .append(")");
+                } else {
+                    int a = stack.pop();
+                    builder.append(" ")
+                            .append(operation)
+                            .append(" ")
+                            .append(a);
+                }
+            } else {
+                stack.push(Integer.valueOf(operation));
+            }
+        }
+        if(builder.length() == 0) {
+            builder.append(stack.pop());
+        }
+        return builder.append(" = ")
+                .append(evaluate())
+                .toString();
     }
 }
