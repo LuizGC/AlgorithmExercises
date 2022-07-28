@@ -2,7 +2,6 @@ package com.algorithm.exercises.validparenthesis;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Stack;
 
 /*
@@ -21,10 +20,13 @@ public final class ParenthesisValidator {
     private final String text;
 
     public ParenthesisValidator(final String text) {
-        this.text = Optional.ofNullable(text).orElse("").strip();
-        if (!this.text.replaceAll("[\\[\\](){}]", "").isEmpty()) {
+        if (text == null || text.isEmpty()) {
+            throw new IllegalArgumentException("Parameter is empty or null");
+        }
+        if (!text.replaceAll("[\\[\\](){}]", "").trim().isEmpty()) {
             throw new IllegalArgumentException("Only '[', ']', '(', ')', '{' and '}' are valid input!");
         }
+        this.text = text;
     }
 
     public boolean isValid() {
