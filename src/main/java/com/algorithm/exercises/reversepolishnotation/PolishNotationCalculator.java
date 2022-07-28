@@ -57,19 +57,19 @@ public class PolishNotationCalculator {
                 if (stack.size() > 1) {
                     int b = stack.pop();
                     int a = stack.pop();
-                    builder.append("(")
-                            .append(a)
-                            .append(" ")
-                            .append(operation)
-                            .append(" ")
-                            .append(b)
-                            .append(")");
+                    if (expresion.length > 3) {
+                        builder.append("(");
+                    }
+                    builder.append(a);
+                    addOperation(builder, operation);
+                    builder.append(b);
+                    if (expresion.length > 3) {
+                        builder.append(")");
+                    }
                 } else {
+                    addOperation(builder, operation);
                     int a = stack.pop();
-                    builder.append(" ")
-                            .append(operation)
-                            .append(" ")
-                            .append(a);
+                    builder.append(a);
                 }
             } else {
                 stack.push(Integer.valueOf(operation));
@@ -81,5 +81,11 @@ public class PolishNotationCalculator {
         return builder.append(" = ")
                 .append(evaluate())
                 .toString();
+    }
+
+    private void addOperation(StringBuilder builder, String operation) {
+        builder.append(" ")
+                .append(operation)
+                .append(" ");
     }
 }

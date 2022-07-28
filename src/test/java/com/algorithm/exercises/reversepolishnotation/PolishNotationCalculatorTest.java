@@ -62,7 +62,8 @@ class PolishNotationCalculatorTest {
         return Stream.of(
                 Arguments.of(new String[]{"2", "1", "+", "3", "*"}, 9),
                 Arguments.of(new String[]{"4", "13", "5", "/", "+"}, 6),
-                Arguments.of(new String[]{"4"}, 4)
+                Arguments.of(new String[]{"4"}, 4),
+                Arguments.of(new String[]{"4", "5", "-"}, -1)
         );
     }
 
@@ -70,7 +71,8 @@ class PolishNotationCalculatorTest {
         return Stream.of(
                 Arguments.of(new String[]{"2", "1", "+", "3", "*"}, "(2 + 1) * 3 = 9"),
                 Arguments.of(new String[]{"4", "13", "5", "/", "+"}, "(13 / 5) + 4 = 6"),
-                Arguments.of(new String[]{"4"}, "4 = 4")
+                Arguments.of(new String[]{"4"}, "4 = 4"),
+                Arguments.of(new String[]{"4", "5", "-"}, "4 - 5 = -1")
         );
     }
 
