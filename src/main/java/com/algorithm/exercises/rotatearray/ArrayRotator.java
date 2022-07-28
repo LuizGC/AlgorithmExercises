@@ -12,12 +12,16 @@ How many different ways do you know to solve this problem?
 */
 public class ArrayRotator {
 
-    public int[] rotate(int[] array, int k) {
+    private final int[] array;
 
+    public ArrayRotator(int[] array) {
         if (array == null) {
             throw new IllegalArgumentException("Array can't be null");
         }
+        this.array = array;
+    }
 
+    public int[] rotate(int k) {
         if (k > array.length || k < 0) {
             throw new IllegalArgumentException("K is invalid");
         }

@@ -12,10 +12,10 @@ class ArrayRotatorTest {
         // Given
         int[] array = new int[]{1,2,3,4,5,6,7};
         int k = 3;
-        ArrayRotator rotator = new ArrayRotator();
+        ArrayRotator rotator = new ArrayRotator(array);
 
         // when
-        int[] rotatedArray = rotator.rotate(array, k);
+        int[] rotatedArray = rotator.rotate(k);
 
         // then
         int[] expected = new int[]{5,6,7,1,2,3,4};
@@ -27,10 +27,10 @@ class ArrayRotatorTest {
         // Given
         int[] array = new int[]{1,2};
         int k = 3;
-        ArrayRotator rotator = new ArrayRotator();
+        ArrayRotator rotator = new ArrayRotator(array);
 
         // Then
-        assertThrowsExactly(IllegalArgumentException.class, () -> rotator.rotate(array, k));
+        assertThrowsExactly(IllegalArgumentException.class, () -> rotator.rotate(k));
     }
 
     @Test
@@ -38,20 +38,15 @@ class ArrayRotatorTest {
         // Given
         int[] array = new int[]{1,2};
         int k = -1;
-        ArrayRotator rotator = new ArrayRotator();
+        ArrayRotator rotator = new ArrayRotator(array);
 
         // Then
-        assertThrowsExactly(IllegalArgumentException.class, () -> rotator.rotate(array, k));
+        assertThrowsExactly(IllegalArgumentException.class, () -> rotator.rotate(k));
     }
 
     @Test
     void exceptionWhenArrayIsNull() {
-        // Given
-        int[] array = null;
-        int k = 3;
-        ArrayRotator rotator = new ArrayRotator();
-
         // Then
-        assertThrowsExactly(IllegalArgumentException.class, () -> rotator.rotate(array, k));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ArrayRotator(null));
     }
 }
