@@ -1,4 +1,4 @@
-package com.algorithm.exercises.rotatearray;
+package com.leetcode.exercises.rotatearray;
 
 /*
 1 Rotate Array in Java

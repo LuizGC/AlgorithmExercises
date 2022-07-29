@@ -1,4 +1,4 @@
-package com.algorithm.exercises.reversepolishnotation;
+package com.leetcode.exercises.reversepolishnotation;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

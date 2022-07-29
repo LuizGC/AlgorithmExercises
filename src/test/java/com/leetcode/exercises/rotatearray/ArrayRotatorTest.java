@@ -1,4 +1,4 @@
-package com.algorithm.exercises.rotatearray;
+package com.leetcode.exercises.rotatearray;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

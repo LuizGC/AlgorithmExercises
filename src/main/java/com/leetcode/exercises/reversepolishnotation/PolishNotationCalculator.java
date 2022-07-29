@@ -1,4 +1,4 @@
-package com.algorithm.exercises.reversepolishnotation;
+package com.leetcode.exercises.reversepolishnotation;
 
 import java.util.Collection;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.algorithm.exercises.validparenthesis;
+package com.leetcode.exercises.validparenthesis;
 
 import java.util.Collection;
 import java.util.Map;
