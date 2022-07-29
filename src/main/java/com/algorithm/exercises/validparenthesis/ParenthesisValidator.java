@@ -19,7 +19,7 @@ public final class ParenthesisValidator {
 
     private final String text;
 
-    public ParenthesisValidator(final String text) {
+    public ParenthesisValidator(String text) {
         if (text == null || text.isEmpty()) {
             throw new IllegalArgumentException("Parameter is empty or null");
         }
@@ -33,6 +33,9 @@ public final class ParenthesisValidator {
         Stack<Character> stack = new Stack<>();
         for (char c : text.toCharArray()) {
             if (KEYS.contains(c)) {
+                if (stack.size() == 0) {
+                    return false;
+                }
                 char stackItem = stack.pop();
                 char openParenthesisEquivalent = PARENTHESIS_GROUP.get(c);
                 if (openParenthesisEquivalent != stackItem) {

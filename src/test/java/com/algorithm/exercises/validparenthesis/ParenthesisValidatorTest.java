@@ -1,6 +1,5 @@
 package com.algorithm.exercises.validparenthesis;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -22,7 +21,7 @@ class ParenthesisValidatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"{(}", "{)}", "{(})"})
+    @ValueSource(strings = {"{(}", "{)}", "{(})", "]"})
     void isNotValid(String text) {
         // Given
         ParenthesisValidator validator = new ParenthesisValidator(text);
@@ -39,11 +38,5 @@ class ParenthesisValidatorTest {
     void illegalParameters(String text) {
         // Then
         assertThrowsExactly(IllegalArgumentException.class, () -> new ParenthesisValidator(text));
-    }
-
-    @Test
-    void illegalNullParameters() {
-        // Then
-        assertThrowsExactly(IllegalArgumentException.class, () -> new ParenthesisValidator(null));
     }
 }
