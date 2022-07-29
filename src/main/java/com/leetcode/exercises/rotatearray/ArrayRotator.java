@@ -14,9 +14,6 @@ public class ArrayRotator {
     private final int[] array;
 
     public ArrayRotator(int[] array) {
-        if (array == null) {
-            throw new IllegalArgumentException("Array can't be null");
-        }
         this.array = array;
     }
 
