@@ -1,6 +1,5 @@
 package com.algorithm.exercises.rotatearray;
 
-
 /*
 1 Rotate Array in Java
 
@@ -22,11 +21,14 @@ public class ArrayRotator {
     }
 
     public int[] rotate(int k) {
-        if (k > array.length || k < 0) {
-            throw new IllegalArgumentException("K is invalid");
+        if (k > array.length) {
+            k = k - (array.length*(k/array.length));
+        }
+        if (k == array.length || k == 0) {
+            return array;
         }
         int[] rotatedArray = new int[array.length];
-        System.arraycopy(array, k+1, rotatedArray, 0, k);
+        System.arraycopy(array, array.length-k, rotatedArray, 0, k);
         System.arraycopy(array, 0, rotatedArray, k, array.length-k);
         return rotatedArray;
     }
