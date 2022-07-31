@@ -1,7 +1,5 @@
 package com.leetcode.exercises.longestpalindromicsubstring;
 
-import java.util.function.Function;
-
 /*
 3 Solution of Longest Palindromic Substring in Java
 */
@@ -17,42 +15,51 @@ public class LongestPalindromicSubstringFinder {
         if (isPalindrome(text)) {
             return text;
         }
-        char[] chars = text.toCharArray();
-        char[][] palindrome = new char[chars.length][chars.length];
-        for (int i = 0; i < chars.length; i++) {
-            for (int j = 0; j < chars.length; j++) {
-                palindrome[i][j] = chars[i] == chars[chars.length - j - 1] ? chars[i] : '-';
+        if (text.length() == 2) {
+            return String.valueOf(text.charAt(0));
+        }
+        char[][] palindromeMatrix = new char[text.length()][text.length()];
+        for (int i = 0; i < text.length(); i++) {
+            for (int j = 0; j < text.length(); j++) {
+                palindromeMatrix[i][j] = text.charAt(i) == text.charAt(text.length() - j - 1) ? text.charAt(i) : '-';
             }
         }
+        return findLongestPalindrome(text.length(), palindromeMatrix);
+    }
+
+    private static String findLongestPalindrome(int textLength, char[][] palindrome) {
         String longestPalindrome = "";
-        for (int i = chars.length-1; i >= 0; i--) {
-            final int iteration = i;
-            final int maxSize = chars.length - i;
-            longestPalindrome = findLongest(maxSize, longestPalindrome, (j) -> palindrome[j][iteration + j]);
-            longestPalindrome = findLongest(maxSize, longestPalindrome, (j) -> palindrome[iteration + j][j]);
+        for (int iteration = textLength - 1; iteration >= 0; iteration--) {
+            int maxSize = textLength - iteration;
+            StringBuilder left = new StringBuilder();
+            StringBuilder right = new StringBuilder();
+            for (int j = 0; j < maxSize; j++) {
+                left = checkPalindrome(left, palindrome[j][iteration + j]);
+                right = checkPalindrome(right, palindrome[iteration + j][j]);
+                longestPalindrome = checkLongest(longestPalindrome, left.toString());
+                longestPalindrome = checkLongest(longestPalindrome, right.toString());
+            }
         }
         return longestPalindrome;
+    }
+
+    private static String checkLongest(String longestPalindrome, String newPalindrome) {
+        if (longestPalindrome.length() < newPalindrome.length() && isPalindrome(newPalindrome)) {
+            return newPalindrome;
+        } else {
+            return longestPalindrome;
+        }
     }
 
     private static boolean isPalindrome(String text) {
         return new StringBuilder(text).reverse().toString().equals(text);
     }
 
-    private static String findLongest(int maxSize, String longest, Function<Integer, Character> getChar) {
-        StringBuilder builder = new StringBuilder();
-        for (int j = 0; j < maxSize; j++) {
-            char charTmp = getChar.apply(j);
-            if (charTmp == '-') {
-                builder = new StringBuilder();
-            } else {
-                builder.append(charTmp);
-                if (isPalindrome(builder.toString())) {
-                    if (builder.length() > longest.length()) {
-                        longest = builder.toString();
-                    }
-                }
-            }
+    private static StringBuilder checkPalindrome(StringBuilder builder, char charTmp) {
+        if (charTmp == '-') {
+            return new StringBuilder();
+        } else {
+            return builder.append(charTmp);
         }
-        return longest;
     }
 }
