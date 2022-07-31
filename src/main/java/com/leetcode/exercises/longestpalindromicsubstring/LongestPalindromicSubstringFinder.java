@@ -1,5 +1,7 @@
 package com.leetcode.exercises.longestpalindromicsubstring;
 
+import java.util.function.Function;
+
 /*
 3 Solution of Longest Palindromic Substring in Java
 */
@@ -12,7 +14,7 @@ public class LongestPalindromicSubstringFinder {
     }
 
     public String search() {
-        if (text.length() == 1) {
+        if (isPalindrome(text)) {
             return text;
         }
         char[] chars = text.toCharArray();
@@ -22,35 +24,31 @@ public class LongestPalindromicSubstringFinder {
                 palindrome[i][j] = chars[i] == chars[chars.length - j - 1] ? chars[i] : '-';
             }
         }
-        String longest = "";
+        String longestPalindrome = "";
         for (int i = chars.length-1; i >= 0; i--) {
-            StringBuilder builder = new StringBuilder();
-            for (int j = 0; j < chars.length-i; j++) {
-                char charTmp = palindrome[i+j][j];
-                if (charTmp == '-') {
-                    builder = new StringBuilder();
-                } else {
-                    builder.append(charTmp);
-                    if (builder.length() > longest.length()) {
-                        if (builder.toString().equals(new StringBuilder(builder.toString()).reverse().toString())) {
-                            longest = builder.toString();
-                        }
-                    }
-                }
-            }
+            final int iteration = i;
+            final int maxSize = chars.length - i;
+            longestPalindrome = findLongest(maxSize, longestPalindrome, (j) -> palindrome[j][iteration + j]);
+            longestPalindrome = findLongest(maxSize, longestPalindrome, (j) -> palindrome[iteration + j][j]);
         }
-        for (int i = 1; i < chars.length; i++) {
-            StringBuilder builder = new StringBuilder();
-            for (int j = 0; j < chars.length-i; j++) {
-                char charTmp = palindrome[j][j+i];
-                if (charTmp == '-') {
-                    builder = new StringBuilder();
-                } else {
-                    builder.append(charTmp);
-                    if (builder.length() >= longest.length()) {
-                        if (builder.toString().equals(new StringBuilder(builder.toString()).reverse().toString())) {
-                            longest = builder.toString();
-                        }
+        return longestPalindrome;
+    }
+
+    private static boolean isPalindrome(String text) {
+        return new StringBuilder(text).reverse().toString().equals(text);
+    }
+
+    private static String findLongest(int maxSize, String longest, Function<Integer, Character> getChar) {
+        StringBuilder builder = new StringBuilder();
+        for (int j = 0; j < maxSize; j++) {
+            char charTmp = getChar.apply(j);
+            if (charTmp == '-') {
+                builder = new StringBuilder();
+            } else {
+                builder.append(charTmp);
+                if (isPalindrome(builder.toString())) {
+                    if (builder.length() > longest.length()) {
+                        longest = builder.toString();
                     }
                 }
             }
