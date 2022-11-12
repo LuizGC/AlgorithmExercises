@@ -14,10 +14,13 @@ public class SudokuSolverTest {
     @ParameterizedTest
     @MethodSource("inputProvider")
     void testSolveSudoku(char[][] input, char[][] expected) {
+        // Given
         SudokuSolver solver = new SudokuSolver();
 
+        // When
         char[][] output = solver.solveSudoku(input);
 
+        // Then
         assertArrayEquals(expected, output);
     }
 
