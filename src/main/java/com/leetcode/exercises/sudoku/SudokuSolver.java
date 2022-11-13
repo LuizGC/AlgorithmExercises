@@ -26,7 +26,7 @@ import java.util.List;
 public class SudokuSolver {
 
     public char[][] solveSudoku(char[][] board) {
-        print(board);
+        //print(board);
         PossibilitiesMapper mapper = new PossibilitiesMapper();
         PossibilitiesReducer reducer = new PossibilitiesReducer();
         for (int i = 0; i < board.length; i++) {
