@@ -12,6 +12,10 @@ public class PossibilitiesReducer {
 
     private Map<String, List<Character>> possibilities = new HashMap<>();
 
+    List<Character> get(int x, int y) {
+        return this.possibilities.getOrDefault(calculateMapKey(x, y), List.of());
+    }
+
     void add(int x, int y, List<Character> possibilities) {
         this.possibilities.put(calculateMapKey(x, y), possibilities);
     }
@@ -24,7 +28,7 @@ public class PossibilitiesReducer {
         Set<Character> otherSpotPossibilities = new HashSet<>();
         for (int i = 0; i < 9; i++) {
             if (i != y) {
-                List<Character> spot = this.possibilities.getOrDefault(calculateMapKey(x, i), List.of());
+                List<Character> spot = get(x, i);
                 otherSpotPossibilities.addAll(spot);
             }
         }
@@ -42,7 +46,7 @@ public class PossibilitiesReducer {
         Set<Character> otherSpotPossibilities = new HashSet<>();
         for (int i = 0; i < 9; i++) {
             if (i != x) {
-                List<Character> spot = this.possibilities.getOrDefault(calculateMapKey(i, y), List.of());
+                List<Character> spot = get(i, y);
                 otherSpotPossibilities.addAll(spot);
             }
         }
@@ -53,7 +57,7 @@ public class PossibilitiesReducer {
     }
 
     List<Character> reduceBox(int x, int y) {
-        List<Character> currentSpot = this.possibilities.get(calculateMapKey(x, y));
+        List<Character> currentSpot = get(x, y);
         if (currentSpot.size() == 1) {
             return List.copyOf(currentSpot);
         }
@@ -100,5 +104,7 @@ public class PossibilitiesReducer {
     private String calculateMapKey(int x, int y) {
         return x + "" + y;
     }
+
+
 
 }
