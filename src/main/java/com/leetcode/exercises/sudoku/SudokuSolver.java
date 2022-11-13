@@ -78,16 +78,16 @@ public class SudokuSolver {
         return false;
     }
 
-    private int i = 0;
+    // private int i = 0;
 
-    private void print(char[][] board) {
-        System.out.println("--------------------------------");
-        System.out.println("Interation " + i++);
-        for (char[] row : board)
-            System.out.println(Arrays.toString(row));
-        System.out.println("--------------------------------");
-        System.out.println("");
-    }
+    // private void print(char[][] board) {
+    //     System.out.println("--------------------------------");
+    //     System.out.println("Interation " + i++);
+    //     for (char[] row : board)
+    //         System.out.println(Arrays.toString(row));
+    //     System.out.println("--------------------------------");
+    //     System.out.println("");
+    // }
 
     public static char[][] deepCopy(char[][] original) {
         if (original == null) {
