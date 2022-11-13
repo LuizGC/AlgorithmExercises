@@ -81,46 +81,53 @@ public class PossibilitiesReducerTest {
 
     @ParameterizedTest
     @MethodSource("inputProvider")
-    void reduce(int x, int y, List<Character> expected) {
+    void reduce(char[][] input, int x, int y, List<Character> expected) {
         // Given
-        char[][] c = new char[][] {
-                { '5', '3', '.', '.', '7', '.', '.', '.', '.' },
-                { '6', '.', '.', '1', '9', '5', '.', '.', '.' },
-                { '.', '9', '8', '.', '.', '.', '.', '6', '.' },
-                { '8', '.', '.', '.', '6', '.', '.', '.', '3' },
-                { '4', '.', '.', '8', '.', '3', '.', '.', '1' },
-                { '7', '.', '.', '.', '2', '.', '.', '.', '6' },
-                { '.', '6', '.', '.', '.', '.', '2', '8', '.' },
-                { '.', '.', '.', '4', '1', '9', '.', '.', '5' },
-                { '.', '.', '.', '.', '8', '.', '.', '7', '9' } };
+        input = Arrays.stream(input)
+        .map(arr -> Arrays.copyOf(arr, arr.length))
+        .toArray(char[][]::new);
         PossibilitiesMapper mapper = new PossibilitiesMapper();
         PossibilitiesReducer reducer = new PossibilitiesReducer();
-        for (int i = 0; i < c.length; i++) {
-            for (int j = 0; j < c.length; j++) {
-                reducer.add(i, j, mapper.mapPossibilities(i, j, c));
+        for (int i = 0; i < input.length; i++) {
+            for (int j = 0; j < input.length; j++) {
+                reducer.add(i, j, mapper.mapPossibilities(i, j, input));
             }
         }
 
         // When
         List<Character> result = reducer.reduce(x, y);
 
-        System.out.println("result");
-        System.out.println(Arrays.toString(mapper.mapPossibilities(x, y, c).toArray()));
-        System.out.println(Arrays.toString(reducer.reduce(x, y).toArray()));
-
-        System.out.println("box");
-        System.out.println(Arrays.toString(mapper.getPossibilitiesBox(x, y, c).toArray()));
-        System.out.println(Arrays.toString(reducer.reduceBox(x, y).toArray()));
-        
-
-
+        // Then
         assertIterableEquals(expected, result);
     }
 
     private static Stream<Arguments> inputProvider() {
+        char[][] inputInitial = new char[][] {
+            { '5', '3', '.', '.', '7', '.', '.', '.', '.' },
+            { '6', '.', '.', '1', '9', '5', '.', '.', '.' },
+            { '.', '9', '8', '.', '.', '.', '.', '6', '.' },
+            { '8', '.', '.', '.', '6', '.', '.', '.', '3' },
+            { '4', '.', '.', '8', '.', '3', '.', '.', '1' },
+            { '7', '.', '.', '.', '2', '.', '.', '.', '6' },
+            { '.', '6', '.', '.', '.', '.', '2', '8', '.' },
+            { '.', '.', '.', '4', '1', '9', '.', '.', '5' },
+            { '.', '.', '.', '.', '8', '.', '.', '7', '9' } };
+        char[][] input12Interaction = new char[][] {
+            {'5', '3', '4', '6', '7', '8', '.', '.', '2'},
+            {'6', '7', '2', '1', '9', '5', '3', '4', '8'},
+            {'1', '9', '8', '.', '.', '.', '5', '6', '7'},
+            {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+            {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+            {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+            {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+            {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+            {'.', '.', '.', '.', '8', '.', '.', '7', '9'} };
+
         return Stream.of(
-                Arguments.of(0, 2, List.of()),
-                Arguments.of(0, 3, List.of('6')));
+                Arguments.of(inputInitial, 0, 2, List.of()),
+                Arguments.of(inputInitial, 0, 3, List.of()),
+                Arguments.of(input12Interaction, 3, 1, List.of())
+                );
     }
 
     @Test

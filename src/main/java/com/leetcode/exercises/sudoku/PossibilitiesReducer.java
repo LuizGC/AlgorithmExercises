@@ -1,8 +1,6 @@
 package com.leetcode.exercises.sudoku;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -64,7 +62,7 @@ public class PossibilitiesReducer {
         int projectedY = project(y);
         for (int i = projectedX; i < projectedX + 3; i++) {
             for (int j = projectedY; j < projectedY + 3; j++) {
-                if (x != i && y != j) {
+                if (x != i || y != j) {
                     List<Character> spot = this.possibilities.getOrDefault(calculateMapKey(i, j), List.of());
                     otherSpotPossibilities.addAll(spot);
                 }
