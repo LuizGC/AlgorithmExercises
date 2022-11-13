@@ -104,7 +104,4 @@ public class PossibilitiesReducer {
     private String calculateMapKey(int x, int y) {
         return x + "" + y;
     }
-
-
-
 }
