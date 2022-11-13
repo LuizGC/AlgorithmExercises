@@ -48,18 +48,15 @@ public class SudokuSolver {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (isEmpty(board, i, j)) {
-                    List<Character> p = mapper.mapPossibilities(i, j, board);
-                    if (p.size() == 2) {
-                        for (Character character : p) {
-                            char[][] board2 = deepCopy(board);
-                            board2[i][j] = character;
-                            board2 = solveSudoku(board2);
-                            if (!hasEmptySpot(board2)) {
-                                return board2;
-                            }
+                    for (Character character : reducer.get(i, j)) {
+                        char[][] board2 = deepCopy(board);
+                        board2[i][j] = character;
+                        board2 = solveSudoku(board2);
+                        if (!hasEmptySpot(board2)) {
+                            return board2;
                         }
-
                     }
+
                 }
             }
         }
