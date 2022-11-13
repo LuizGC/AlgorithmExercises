@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class PossibilitiesFinderTest {
+public class PossibilitiesMapperTest {
 
     @Test
     void getPossibilitiesHorizontally() {
@@ -16,7 +16,7 @@ public class PossibilitiesFinderTest {
         populateBoardWithEmptyCharacter(board);
         board[x][6] = '5';
         board[x][4] = '1';
-        PossibilitiesFinder finder = new PossibilitiesFinder();
+        PossibilitiesMapper finder = new PossibilitiesMapper();
 
         // when
         List<Character> result = finder.getPossibilitiesHorizontally(x, y, board);
@@ -34,7 +34,7 @@ public class PossibilitiesFinderTest {
         populateBoardWithEmptyCharacter(board);
         board[3][y] = '5';
         board[5][y] = '1';
-        PossibilitiesFinder finder = new PossibilitiesFinder();
+        PossibilitiesMapper finder = new PossibilitiesMapper();
 
         // when
         List<Character> result = finder.getPossibilitiesVertically(x, y, board);
@@ -52,7 +52,7 @@ public class PossibilitiesFinderTest {
         populateBoardWithEmptyCharacter(board);
         board[3][6] = '5';
         board[5][8] = '1';
-        PossibilitiesFinder finder = new PossibilitiesFinder();
+        PossibilitiesMapper finder = new PossibilitiesMapper();
 
         // when
         List<Character> result = finder.getPossibilitiesBox(x, y, board);
@@ -68,10 +68,10 @@ public class PossibilitiesFinderTest {
         char[][] board = new char[9][9];
         int x = 4, y = 7;
         board[x][y] = '6';
-        PossibilitiesFinder finder = new PossibilitiesFinder();
+        PossibilitiesMapper finder = new PossibilitiesMapper();
 
         // when
-        List<Character> result = finder.getPossibilities(x, y, board);
+        List<Character> result = finder.mapPossibilities(x, y, board);
 
         // Then
         assertIterableEquals(List.of('6'), result);
@@ -89,10 +89,10 @@ public class PossibilitiesFinderTest {
         board[3][y] = '5';
         board[3][6] = '7';
         board[x][4] = '8';
-        PossibilitiesFinder finder = new PossibilitiesFinder();
+        PossibilitiesMapper finder = new PossibilitiesMapper();
 
         // when
-        List<Character> result = finder.getPossibilities(x, y, board);
+        List<Character> result = finder.mapPossibilities(x, y, board);
 
         // Then
         List<Character> expected = List.of( '4', '6', '9');

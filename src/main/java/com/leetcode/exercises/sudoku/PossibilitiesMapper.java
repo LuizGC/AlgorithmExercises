@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-class PossibilitiesFinder {
+class PossibilitiesMapper {
 
     private static final char EMPTY_MARKER = '.';
 
-    List<Character> getPossibilities(int x, int y, char[][] board) {
+    List<Character> mapPossibilities(int x, int y, char[][] board) {
         char c = board[x][y];
         if (c != EMPTY_MARKER) {
             return List.of(c);
