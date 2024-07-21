@@ -38,8 +38,8 @@ class SolutionTest {
     @Test
     void testIncrement() {
         var countBits = new Solution();
-        int[] binary = new int[100];
-        for (int i = 1; i <= 1000; i++) {
+        int[] binary = new int[105  ];
+        for (int i = 1; i <= 100000; i++) {
             countBits.incrementBinary(binary);
             assertEquals(Integer.bitCount(i), summingBit(binary));
         }

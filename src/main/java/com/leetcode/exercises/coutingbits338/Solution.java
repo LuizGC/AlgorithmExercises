@@ -34,14 +34,11 @@ package com.leetcode.exercises.coutingbits338;
 class Solution {
 
     public int[] countBits(int n) {
-        int[] binary = new int[7];
+        int[] binary = new int[105];
         int[] bitNumbers = new int[n + 1];
         for (int i = 1; i <= n; i++) {
             incrementBinary(binary);
             bitNumbers[i] = countBitsIn(binary);
-        }
-        for (int i : bitNumbers) {
-            System.out.print(i);
         }
         return bitNumbers;
     }
@@ -52,12 +49,11 @@ class Solution {
             int bit = binary[i];
             bit = bit + incNexBit;
             if (bit == 2) {
-                bit = 0;
-                incNexBit = 1;
+                binary[i] = 0;
             } else {
-                incNexBit = 0;
+                binary[i] = bit;
+                break;
             }
-            binary[i] = bit;
         }
     }
 
