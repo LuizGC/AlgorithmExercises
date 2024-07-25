@@ -35,15 +35,18 @@ class Solution {
 
     public int[] countBits(int n) {
         int[] bitNumbers = new int[n + 1];
-        for (int i = bitNumbers.length - 1; i > 0; i--) {
+        if (n > 0) {
+            bitNumbers[1] = 1;
+        }
+        for (int i = bitNumbers.length - 1; i > 1; i--) {
             bitNumbers[i] = countBits(i, bitNumbers);
         }
         return bitNumbers;
     }
 
     private int countBits(int n, int[] bitNumbers) {
-        if (n == 0) {
-            return 0;
+        if (n == 1) {
+            return 1;
         }
         if (bitNumbers[n] > 0) {
             return bitNumbers[n];

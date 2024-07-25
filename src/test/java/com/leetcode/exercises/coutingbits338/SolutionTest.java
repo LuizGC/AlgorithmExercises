@@ -29,8 +29,6 @@ class SolutionTest {
         assertArrayEquals(expected, result);
     }
 
-
-
     @Test
     void testCountBitsInArray() {
         var countBits = new Solution();
