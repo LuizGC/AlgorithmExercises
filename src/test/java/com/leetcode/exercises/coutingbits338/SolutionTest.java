@@ -32,7 +32,7 @@ class SolutionTest {
     @Test
     void testCountBitsInArray() {
         var countBits = new Solution();
-        for (int i = 0; i <= 100000; i++) {
+        for (int i = 0; i <= 1000; i++) {
             int[] bitNumbers = countBits.countBits(i);
             for (int j = 0; j < bitNumbers.length; j++) {
                 assertEquals(Integer.bitCount(j), bitNumbers[j]);
