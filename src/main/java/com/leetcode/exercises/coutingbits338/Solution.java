@@ -34,34 +34,23 @@ package com.leetcode.exercises.coutingbits338;
 class Solution {
 
     public int[] countBits(int n) {
-        int[] binary = new int[105];
         int[] bitNumbers = new int[n + 1];
-        for (int i = 1; i <= n; i++) {
-            incrementBinary(binary);
-            bitNumbers[i] = countBitsIn(binary);
+        for (int i = bitNumbers.length - 1; i > 0; i--) {
+            bitNumbers[i] = countBits(i, bitNumbers);
         }
         return bitNumbers;
     }
 
-    public void incrementBinary(int[] binary) {
-        int incNexBit = 1;
-        for (int i = 0; i < binary.length; i++) {
-            int bit = binary[i];
-            bit = bit + incNexBit;
-            if (bit == 2) {
-                binary[i] = 0;
-            } else {
-                binary[i] = bit;
-                break;
-            }
+    private int countBits(int n, int[] bitNumbers) {
+        if (n == 0) {
+            return 0;
         }
-    }
-
-    public int countBitsIn(int[] binary) {
-        int numberBits = 0;
-        for (var bit : binary) {
-            numberBits += bit;
+        if (bitNumbers[n] > 0) {
+            return bitNumbers[n];
         }
-        return numberBits;
+        int remainder = n % 2;
+        int quotient = n / 2;
+        bitNumbers[n] = remainder + countBits(quotient, bitNumbers);
+        return bitNumbers[n];
     }
 }
